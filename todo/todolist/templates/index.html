@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo List</title>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background: #fff;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #c0392b;
+      }
+    </style>
+  <body>
+    <h1>Todo List</h1>
+    <ul>
+      {% for todo in todos %}
+        <li>
+          {{ todo.title }}
+          {% if todo.completed %}
+            <span style="color: green;">(Completed)</span>
+          {% endif %}
+          <form action="{{ url_for('delete_todo', todo_id=todo.id) }}" method="post">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <form action="{{ url_for('add_todo') }}" method="post">
+      <input type="text" name="title" placeholder="Add new todo">
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
