@@ -28,7 +28,7 @@ def add_todo():
 
 @app.route("/delete/<int:todo_id>", methods=["POST"])
 def delete_todo(todo_id):
-    todo = Todo.query.get(todo_id)
+    todo = db.session.get(Todo, todo_id)
     if todo:
         db.session.delete(todo)
         db.session.commit()
